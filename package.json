@@ -1,0 +1,12 @@
+{
+  "name": "phos-aio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
