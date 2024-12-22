@@ -1,3 +1,4 @@
+#include "player_obj.hpp"
 #include "components.hpp"
 #include "thread.hpp"
 
@@ -27,25 +28,25 @@ DWORD WINAPI MainThread(HMODULE hModule)
 
     uint64_t pointerBaseAddress = GetThreadStack(0, hProcHandle, pid);
     uint64_t offsetGameToBaseAdress = -0x00000E30;
-    std::vector<DWORD> pointsOffsets{0x18, 0x110, 0xF70, 0x90, 0x94, 0x18, 0x6EC};
-    uint64_t baseAddr = NULL;
-    ReadProcessMemory(hProcHandle, (LPCVOID)(pointerBaseAddress + offsetGameToBaseAdress), &baseAddr, sizeof(baseAddr), NULL);
-    std::cout << "Base Address: " << to_string(baseAddr) << std::endl;
-    uint64_t finalAddress = baseAddr;
-    for (int i = 0; i < pointsOffsets.size() - 1; i++)
-    {
-        ReadProcessMemory(hProcHandle, (LPCVOID)(finalAddress + pointsOffsets[i]), &finalAddress, sizeof(finalAddress), NULL);
-        std::cout << "Offset: " << to_string(pointsOffsets[i]) << " = " << to_string(finalAddress) << std::endl;
-    }
-    finalAddress += pointsOffsets[pointsOffsets.size() - 1];
-    int newvalue = 20;
-    WriteProcessMemory(hProcHandle, (LPVOID)(finalAddress), &newvalue, sizeof(newvalue), NULL);
+    PlayerObj player(hProcHandle, pointerBaseAddress, offsetGameToBaseAdress);
+    // player.setHeath(125);
+    // player.setMaxHealth(125);
+
+    bool immortal = false;
 
     while (true)
     {
         if (GetAsyncKeyState(VK_END) & 1)
         {
             break;
+        }
+        if (GetAsyncKeyState(VK_F1) & 1)
+        {
+            immortal = !immortal;
+        }
+        if (immortal)
+        {
+            player.setHeath(125);
         }
     }
 
