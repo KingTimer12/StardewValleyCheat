@@ -4,7 +4,8 @@ cmake_minimum_required(VERSION 3.21)
 project(SVCheat LANGUAGES CXX)
 
 # Define o alvo da DLL
-add_library(svcheat SHARED src/dllmain.cpp src/ntinfo.cpp src/thread.cpp src/player_obj.cpp)
+file(GLOB_RECURSE SOURCES "src/*.cpp")
+add_library(svcheat SHARED ${SOURCES})
 
 # Define o diretório de inclusão
 target_include_directories(svcheat PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)

@@ -1,17 +1,23 @@
 #pragma once
 
 #include "components.hpp"
+#include "net_stamina.hpp"
 
 class PlayerObj
 {
 private:
-    uint64_t *playerAddr;
+    uintptr_t playerAddr;
+    NetStamina netStamina;
     HANDLE hProcHandle;
-    void setValue(uint64_t, int);
+    void setValue(uintptr_t, int);
 
 public:
-    PlayerObj(HANDLE hProcHandle, uint64_t, uint64_t);
+    PlayerObj(uintptr_t, uintptr_t);
     void setHeath(int);
     void setMaxHealth(int);
-    ~PlayerObj();
+    uintptr_t getPlayerAddr();
+    NetStamina getNetStamina();
+
+    template <typename T>
+    T getValue(uintptr_t);
 };

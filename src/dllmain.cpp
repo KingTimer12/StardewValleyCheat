@@ -1,6 +1,6 @@
-#include "player_obj.hpp"
-#include "components.hpp"
 #include "thread.hpp"
+
+#include "player_obj.hpp"
 
 DWORD WINAPI MainThread(HMODULE hModule)
 {
@@ -26,13 +26,13 @@ DWORD WINAPI MainThread(HMODULE hModule)
         std::cout << "Success" << std::endl;
     }
 
-    uint64_t pointerBaseAddress = GetThreadStack(0, hProcHandle, pid);
-    uint64_t offsetGameToBaseAdress = -0x00000E30;
-    PlayerObj player(hProcHandle, pointerBaseAddress, offsetGameToBaseAdress);
-    // player.setHeath(125);
+    uintptr_t pointerBaseAddress = GetThreadStack(0, GetCurrentProcess(), pid);
+    uintptr_t offsetGameToBaseAddress = -0x00000E30;
+    PlayerObj player(pointerBaseAddress, offsetGameToBaseAddress);
+    // player.setHeath(100);
     // player.setMaxHealth(125);
 
-    bool immortal = false;
+    bool immortal = false, infiniteStamina = false;
 
     while (true)
     {
@@ -44,9 +44,17 @@ DWORD WINAPI MainThread(HMODULE hModule)
         {
             immortal = !immortal;
         }
+        if (GetAsyncKeyState(VK_F2) & 1)
+        {
+            infiniteStamina = !infiniteStamina;
+        }
         if (immortal)
         {
             player.setHeath(125);
+        }
+        if (infiniteStamina)
+        {
+            player.getNetStamina().setValue(100);
         }
     }
 
