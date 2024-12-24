@@ -4,7 +4,7 @@
 constexpr uintptr_t OFFSET_HEALTH = 0x6EC;
 constexpr uintptr_t OFFSET_MAX_HEALTH = 0x6F0;
 
-PlayerObj::PlayerObj(uintptr_t stackAddr, uintptr_t offsetGameToBaseAddress) : netStamina(0)
+PlayerObj::PlayerObj(uintptr_t stackAddr, uintptr_t offsetGameToBaseAddress)
 {
     std::vector<DWORD> pointsOffsets{0x18, 0x110, 0xF70, 0x90, 0x94, 0x18};
     uintptr_t *baseAddress = reinterpret_cast<uintptr_t *>(stackAddr + offsetGameToBaseAddress);
@@ -38,7 +38,6 @@ PlayerObj::PlayerObj(uintptr_t stackAddr, uintptr_t offsetGameToBaseAddress) : n
 
     this->playerAddr = currentAddr;
     std::cout << "Player Address resolved: " << std::hex << this->playerAddr << std::endl;
-    this->netStamina = NetStamina(this->playerAddr);
 }
 
 void PlayerObj::setHeath(int newValue)
@@ -80,9 +79,4 @@ T PlayerObj::getValue(uintptr_t offset)
 uintptr_t PlayerObj::getPlayerAddr()
 {
     return this->playerAddr;
-}
-
-NetStamina PlayerObj::getNetStamina()
-{
-    return this->netStamina;
 }

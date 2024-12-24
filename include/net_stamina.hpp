@@ -1,6 +1,6 @@
 #pragma once
 
-#include "player_obj.hpp"
+#include "components.hpp"
 
 class NetStamina
 {
@@ -8,7 +8,7 @@ private:
     uintptr_t netStaminaAddr;
 
 public:
-    NetStamina(PlayerObj player);
-    void setValue(int newValue);
+    NetStamina(uintptr_t, uintptr_t);
+    void setValue(float newValue);
     int getValue();
 };

@@ -1,6 +1,7 @@
 #include "thread.hpp"
 
 #include "player_obj.hpp"
+#include "net_stamina.hpp"
 
 DWORD WINAPI MainThread(HMODULE hModule)
 {
@@ -29,6 +30,7 @@ DWORD WINAPI MainThread(HMODULE hModule)
     uintptr_t pointerBaseAddress = GetThreadStack(0, GetCurrentProcess(), pid);
     uintptr_t offsetGameToBaseAddress = -0x00000E30;
     PlayerObj player(pointerBaseAddress, offsetGameToBaseAddress);
+    NetStamina netStamina(pointerBaseAddress, offsetGameToBaseAddress);
     // player.setHeath(100);
     // player.setMaxHealth(125);
 
@@ -54,7 +56,7 @@ DWORD WINAPI MainThread(HMODULE hModule)
         }
         if (infiniteStamina)
         {
-            player.getNetStamina().setValue(100);
+            netStamina.setValue(100);
         }
     }
 
