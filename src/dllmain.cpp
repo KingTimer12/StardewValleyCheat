@@ -56,7 +56,7 @@ DWORD WINAPI MainThread(HMODULE hModule)
         }
         if (infiniteStamina)
         {
-            netStamina.setValue(100);
+            netStamina.setValue<float>(0x4C, 338);
         }
     }
 

@@ -1,14 +1,10 @@
 #pragma once
 
 #include "components.hpp"
+#include "abstract_obj.hpp"
 
-class NetStamina
+class NetStamina : public AbstractObj
 {
-private:
-    uintptr_t netStaminaAddr;
-
 public:
     NetStamina(uintptr_t, uintptr_t);
-    void setValue(float newValue);
-    int getValue();
 };
