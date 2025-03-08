@@ -12,23 +12,23 @@ target_include_directories(svcheat PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 include(FetchContent)
 
-# Define a versão do libmem antes de baixar
-set(LIBMEM_DOWNLOAD_VERSION "5.0.2")
-
-# Download and set up libmem
-FetchContent_Declare(libmem-config 
-    URL "https://raw.githubusercontent.com/rdbo/libmem/config-v1/libmem-config.cmake" 
-    DOWNLOAD_NO_EXTRACT TRUE
+# Demoncore
+FetchContent_Declare(
+    demoncore
+    GIT_REPOSITORY git@github.com:KingTimer12/demon-core.git
+    GIT_BRANCH master
 )
-FetchContent_MakeAvailable(libmem-config)
-
-set(CMAKE_PREFIX_PATH "${libmem-config_SOURCE_DIR}" "${CMAKE_PREFIX_PATH}")
-
-# Find libmem package
-find_package(libmem CONFIG REQUIRED)
+FetchContent_MakeAvailable(demoncore)
 
 # Adiciona a dependência para a biblioteca libmem
-target_link_libraries(svcheat PUBLIC libmem::libmem)
+target_link_libraries(svcheat PUBLIC demoncore d3d9)
+
+set(DIRECTX_SDK_PATH "C:/Program Files (x86)/Microsoft DirectX SDK (June 2010)")
+
+if (WIN32)
+    include_directories("${DIRECTX_SDK_PATH}/Include")
+    link_directories("${DIRECTX_SDK_PATH}/Lib/x64")
+endif()
 
 # Especifique que o código está sendo construído no Windows
 if(WIN32)
@@ -39,6 +39,7 @@ if(WIN32)
         psapi.lib
         ntdll.lib
         shell32.lib
+        d3d9.lib
     )
 endif()
 

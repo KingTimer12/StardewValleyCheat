@@ -4,7 +4,8 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/build/libmem-c7ba3440b68fa932021c48e5772682df8bcfb5a7/libmem-5.0.2-x86_64-windows-msvc-static-md/include"
+                "${workspaceFolder}/build/libmem-c7ba3440b68fa932021c48e5772682df8bcfb5a7/libmem-5.0.2-x86_64-windows-msvc-static-md/include",
+                "${workspaceFolder}/build/_deps/minhook-src/include"
             ],
             "defines": [
                 "_DEBUG",
