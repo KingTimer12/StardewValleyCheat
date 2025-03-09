@@ -7,6 +7,7 @@
 #include <winternl.h>
 #include <TlHelp32.h>
 #include <Psapi.h>
+#include <memory>
 
 using namespace libmem;
 using namespace std;
